@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bugSound = document.getElementById('bug-sound');
     const correctSound = document.getElementById('correct-sound');
     const videoModal = document.getElementById('video-modal');
-    const eventVideo = document.getElementById('event-video');
+    const eventVideoIframe = document.getElementById('event-video-iframe');
 
     let playerPosition;
     let bugCount;
@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 { text: "Aceitar a estimativa do time sem questionar", bugs: 1, move: 1, consequence: "A estimativa foi curta e você terá que correr com os testes. +1 bug!" }
             ]
         },
-        3: { // Daily Meeting (NOVO EVENTO)
+        3: { // Daily Meeting
             text: "Hora da Daily! O time está reunido para sincronizar. Vamos assistir.",
             choices: [
-                { text: "Participar da Daily", video: 'videos/daily.mp4', bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo." }
+                { text: "Participar da Daily", video: "https://www.youtube.com/embed/mXnj7JEM3pk?si=jtnTU6J6u8ABmpMg&autoplay=1", bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo." }
             ]
         },
         4: { // Automação (era 5)
@@ -225,23 +225,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playVideo(src, onEndedCallback) {
         videoModal.classList.remove('hidden');
-        eventVideo.src = src;
-        eventVideo.play();
+        eventVideoIframe.src = src;
 
         // Função para finalizar o vídeo e limpar os listeners
         function closeVideo() {
             videoModal.classList.add('hidden');
-            eventVideo.pause();
-            eventVideo.removeEventListener('ended', onVideoEnd);
+            eventVideoIframe.src = ""; // Para a reprodução do vídeo do YouTube
             videoModal.removeEventListener('click', onOverlayClick);
             if (onEndedCallback) {
                 onEndedCallback();
             }
-        }
-
-        // Listener para quando o vídeo termina
-        function onVideoEnd() {
-            closeVideo();
         }
 
         // Listener para clique fora do vídeo (no overlay)
@@ -251,7 +244,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        eventVideo.addEventListener('ended', onVideoEnd);
+        // Como não temos um evento 'ended' confiável para iframes, 
+        // o fechamento é manual (clicando fora)
         videoModal.addEventListener('click', onOverlayClick);
     }
 
@@ -270,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bugCount = 0;
         bugCounterSpan.innerText = bugCount;
         videoModal.classList.add('hidden'); // Garante que o modal de vídeo feche ao reiniciar
-        eventVideo.pause();
+        eventVideoIframe.src = ""; // Para a reprodução do vídeo
         renderGameState();
     }
 

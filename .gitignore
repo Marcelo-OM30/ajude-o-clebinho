@@ -1,0 +1,8 @@
+# Ignorar arquivos de vídeo grandes
+/videos/
+
+# Ignorar arquivo de anotações
+falas.txt
+
+# Ignorar pasta de documentos
+/docs/
