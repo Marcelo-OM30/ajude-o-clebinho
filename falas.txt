@@ -1,0 +1,22 @@
+ Scrum Master:
+ Precissamos te ajudar Clebinho. |Vamos estruturar sua atuacao. Voce esta
+ sobrecarregado, sendo o unico da area, e precisamos melhorar a colaboracao do time na
+ qualidade. Vamos revisar uma matriz RACI para dividir responsabilidades.
+ QA (Clebinho):
+ Sim, tenho testado tudo sozinho, no final da sprint, sem participar do planejamento. Nao tenho
+ acesso ao codigo e trabalho muito no ad-hoc, apagando incendio, sem tempo para pensar na
+ qualidade geral.
+ Dev:
+ Clebinho, entendo. Podemos alinhar melhor os criterios de aceitacao e ajudar com automacao,
+ principalmente se comecarmos a trabalhar juntos desde o refinamento.
+ PO:
+ Concordo, as vezes os criterios sao subjetivos. Acho otimo termos o Clebinho desde o inicio para
+ validar requisitos e evitar bugs.
+ Tech Lead:
+ Posso ajudar com a estrutura tecnica, ambientes e pipeline. Tambem podemos integrar a esteira
+ para dar mais visibilidade dos testes.
+ QA (Clebinho):
+ Faz sentido. Me sinto mais seguro sabendo que terei apoio, acesso aos requisitos antes e
+ visibilidade do que faco.
+ PO, Dev, Tech Lead:
+ Estamos juntos nisso. Pode contar conosco. E responsabilidade de todos.

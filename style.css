@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif; /* Fonte mais moderna */
+    display: flex;
+    flex-direction: column; /* Empilha os elementos verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: flex-start; /* Alinha ao topo */
+    min-height: 100vh;
+    background-image: url('images/office-19.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #2c3e50; /* Cor mais escura e profissional */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+}
+
+#game-container, #legend {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.97); /* Mais opaco para melhor leitura */
+    padding: 30px;
+    border-radius: 16px; /* Bordas mais arredondadas */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra mais pronunciada */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#game-container {
+    margin-bottom: 20px;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Grid responsivo */
+    gap: 15px;
+    margin-bottom: 30px;
+    border: none; /* Remove a borda antiga */
+    padding: 0;
+    position: relative;
+}
+
+.square {
+    border: none; /* Remove a borda antiga */
+    padding: 15px 10px;
+    min-height: 70px;
+    text-align: center;
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    border-radius: 12px; /* Bordas mais arredondadas */
+    font-size: 13px;
+    font-weight: 600;
+    color: #34495e;
+    box-shadow: 5px 5px 10px #d4d4d4, -5px -5px 10px #ffffff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.square:hover {
+    transform: translateY(-5px);
+}
+
+#player {
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    background-image: url('images/clebinho-qa.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Transição com bounce */
+    z-index: 10;
+}
+
+#game-info {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #2980b9;
+}
+
+#story {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 1.1em;
+    color: #34495e;
+    min-height: 50px;
+}
+
+#choices {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+#choices button, #restart-btn, #start-btn {
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
+#choices button {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+#choices button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(45deg, #2980b9, #3498db);
+}
+
+#start-btn {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+#start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+#restart-btn {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+#restart-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(45deg, #c0392b, #e74c3c);
+}
+
+#restart-btn, #start-btn {
+    display: inline-block; /* Alterado para se alinhar com os outros botões */
+    margin: 20px 10px 0;
+}
+
+/* Estilos da Legenda */
+#legend {
+    margin-top: 0;
+    padding: 30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.97);
+}
+
+#legend h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.legend-section h3 {
+    color: #2980b9;
+    border-bottom: 2px solid #bdc3c7;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#legend ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#legend li {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #34495e;
+}
+
+#legend li strong {
+    color: #c0392b; /* Vermelho mais forte para bugs */
+    font-weight: 700;
+}
+
+/* Estilos do Modal de Vídeo */
+#video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+#video-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#video-modal video {
+    width: 80%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos do Modal de Documento */
+#doc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Acima do modal de vídeo */
+    transition: opacity 0.3s ease;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#doc-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#doc-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    color: #333;
+}
+
+#doc-content h2 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+#doc-content p {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.doc-download-btn, #close-doc-btn {
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+}
+
+.doc-download-btn {
+     background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.doc-download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+#close-doc-btn {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+
+#close-doc-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

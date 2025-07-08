@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajude a Clebinha</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Ajude a Clebinha!</h1>
+        <div id="game-info">
+            <span>Bugs em Produção: <span id="bug-counter">0</span></span>
+        </div>
+        <div id="game-board">
+            <!-- As casas do tabuleiro serão geradas aqui -->
+        </div>
+        <div id="story">
+            <p id="story-text"></p>
+            <div id="choices"></div>
+        </div>
+        <button id="start-btn">Iniciar Sprint</button>
+        <button id="restart-btn" style="display:none;">Reiniciar Sprint</button>
+    </div>
+
+    <div id="video-modal" class="hidden">
+        <video id="event-video" controls></video>
+    </div>
+
+    <div id="doc-modal" class="hidden">
+        <div id="doc-content">
+            <h2>Matriz de Responsabilidades (RACI)</h2>
+            <p>O P.O. compartilhou a Matriz RACI do time para consulta. É importante saber quem faz o quê.</p>
+            <a href="docs/matriz_raci.xlsx" download="Matriz_RACI_Clebinho.xlsx" id="download-doc-btn" class="doc-download-btn">Baixar Matriz RACI</a>
+            <button id="close-doc-btn">Voltar ao Jogo</button>
+        </div>
+    </div>
+
+    <div id="legend">
+        <h2>Legenda de Pontuação</h2>
+        <div class="legend-section">
+            <h3>Resultado Final (Bugs em Produção):</h3>
+            <ul>
+                <li><strong>0-2 Bugs:</strong> Cliente Satisfeito! Parabéns!</li>
+                <li><strong>3-5 Bugs:</strong> Cliente Irritado! Cuidado na próxima sprint.</li>
+                <li><strong>6+ Bugs:</strong> Cliente Furioso! O projeto está em risco.</li>
+            </ul>
+        </div>
+        <div class="legend-section">
+            <h3>Peso das Decisões (Custo em Bugs):</h3>
+            <ul>
+                <li><strong>Refinamento (Erro):</strong> +1 Bug</li>
+                <li><strong>Planejamento (Erro):</strong> +1 Bug</li>
+                <li><strong>Testes Ad-Hoc (Erro):</strong> +1 Bug</li>
+                <li><strong>Integração Contínua (Erro):</strong> +1 Bug</li>
+                <li><strong>Reunião de Sprint (Erro):</strong> +1 Bug</li>
+                <li><strong>Automação (Erro):</strong> +2 Bugs</li>
+                <li><strong>Revisão de Código (Erro):</strong> +2 Bugs</li>
+                <li><strong>Feedback do PO (Erro):</strong> +2 Bugs</li>
+                <li><strong>Monitoramento (Erro):</strong> +2 Bugs</li>
+                <li><strong>Deploy (Erro):</strong> +3 Bugs</li>
+            </ul>
+        </div>
+    </div>
+
+    <audio id="bug-sound" src="sounds/bug-sound.mp3" preload="auto"></audio>
+    <audio id="correct-sound" src="sounds/certo.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
