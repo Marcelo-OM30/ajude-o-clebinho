@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Cabeçalho com logo e créditos -->
+    <header class="team-header">
+        <div class="team-info">
+            <div class="logos-container">
+                <img src="images/mentoria-logo.png" alt="Logo da Mentoria" class="mentoria-logo">
+                <img src="images/logo-19.png" alt="Logo do Time" class="team-logo">
+            </div>
+            <div class="team-credits">
+                <h3>Produzido por</h3>
+                <div class="team-members">
+                    <span>Marcelo Salmeron</span>
+                    <span>Denilza</span>
+                    <span>Vanessa Alves da Silva</span>
+                    <span>Renato Alves</span>
+                    <span>Douglas Willian E.D.S.</span>
+                </div>
+                <p class="copyright">© 2025 - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </header>
+
     <div id="game-container">
         <h1>Estruturação do setor de qualidade game (ajude a Clebinha)</h1>
         
@@ -19,7 +40,7 @@
                     <div class="instruction-item">
                         <h3>🎯 Mecânica do Jogo</h3>
                         <ul>
-                            <li>Você avançará por 13 casas representando etapas de uma sprint</li>
+                            <li>Você avançará por 12 casas representando etapas de uma sprint</li>
                             <li>Em cada casa, tome decisões que afetarão a qualidade do projeto</li>
                             <li>Decisões ruins geram bugs em produção</li>
                             <li>O objetivo é terminar com o menor número de bugs possível</li>
@@ -56,6 +77,15 @@
                 </div>
                 
                 <p class="start-hint">🚀 <strong>Pronto para começar?</strong> Clique em "Iniciar Sprint" e ajude a Clebinha a ter sucesso!</p>
+                
+                <!-- Botão de teste de som -->
+                <div style="text-align: center; margin: 15px 0;">
+                    <button id="test-sound-btn" style="background: linear-gradient(45deg, #9b59b6, #8e44ad); color: white; border: none; border-radius: 6px; padding: 8px 16px; font-size: 0.9em; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.3s ease;" 
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        🔊 Testar Sons
+                    </button>
+                </div>
             </div>
         </div>
         
@@ -117,6 +147,37 @@
 
     <audio id="bug-sound" src="sounds/bug-sound.mp3" preload="auto"></audio>
     <audio id="correct-sound" src="sounds/certo.mp3" preload="auto"></audio>
+
+    <!-- Rodapé com créditos -->
+    <footer class="team-footer">
+        <div class="team-info">
+            <div class="logos-container-small">
+                <img src="images/mentoria-logo.png" alt="Logo da Mentoria" class="mentoria-logo-small">
+                <img src="images/logo-19.png" alt="Logo do Time" class="team-logo-small">
+            </div>
+            <div class="team-credits">
+                <h4>Desenvolvido por</h4>
+                <div class="team-members-footer">
+                    <span>Marcelo Salmeron</span> • 
+                    <span>Denilza</span> • 
+                    <span>Vanessa Alves da Silva</span> • 
+                    <span>Renato Alves</span> • 
+                    <span>Douglas Willian E.D.S.</span>
+                </div>
+                <p class="copyright">© 2025 - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Elementos de áudio -->
+    <audio id="bug-sound" preload="auto" controls style="display: none;">
+        <source src="sounds/bug-sound.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <audio id="correct-sound" preload="auto" controls style="display: none;">
+        <source src="sounds/certo.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
 
     <script src="script.js"></script>
 </body>

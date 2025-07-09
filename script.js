@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bugCounterSpan = document.getElementById('bug-counter');
     const restartBtn = document.getElementById('restart-btn');
     const startBtn = document.getElementById('start-btn');
+    const testSoundBtn = document.getElementById('test-sound-btn');
     const bugSound = document.getElementById('bug-sound');
     const correctSound = document.getElementById('correct-sound');
     const videoModal = document.getElementById('video-modal');
@@ -15,6 +16,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let playerPosition;
     let bugCount;
+    let soundsInitialized = false;
+
+    // Função para inicializar os sons após a primeira interação do usuário
+    function initializeSounds() {
+        if (!soundsInitialized) {
+            try {
+                // Tenta carregar e preparar os sons
+                bugSound.load();
+                correctSound.load();
+                
+                // Define o volume
+                bugSound.volume = 0.7;
+                correctSound.volume = 0.7;
+                
+                soundsInitialized = true;
+                console.log('Sons inicializados com sucesso');
+            } catch (error) {
+                console.warn('Erro ao inicializar sons:', error);
+            }
+        }
+    }
+
+    // Função melhorada para tocar sons
+    function playSound(audioElement, soundName) {
+        if (!soundsInitialized) {
+            initializeSounds();
+        }
+        
+        try {
+            // Verifica se o elemento de áudio existe e está carregado
+            if (!audioElement || audioElement.readyState < 2) {
+                console.warn(`Som ${soundName} não está pronto para reprodução`);
+                return;
+            }
+            
+            audioElement.currentTime = 0;
+            const playPromise = audioElement.play();
+            
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        console.log(`Som ${soundName} reproduzido com sucesso`);
+                    })
+                    .catch(error => {
+                        console.warn(`Não foi possível tocar o som ${soundName}:`, error.message);
+                        // Tentativa de fallback - reinicializar o áudio
+                        setTimeout(() => {
+                            try {
+                                audioElement.load();
+                            } catch (e) {
+                                console.warn('Falha no fallback de áudio:', e);
+                            }
+                        }, 100);
+                    });
+            }
+        } catch (error) {
+            console.warn(`Erro ao tentar tocar o som ${soundName}:`, error.message);
+        }
+    }
 
     const boardSquares = [
         { name: 'Início' },
@@ -56,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         3: { // Daily Meeting
             text: "Hora da Daily! O time está reunido para sincronizar. Vamos assistir.",
             choices: [
-                { text: "Participar da Daily", video: "https://www.youtube.com/embed/mXnj7JEM3pk?si=jtnTU6J6u8ABmpMg&autoplay=1", bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo.", showDocument: true }
+                { text: "Participar da Daily", video: "https://www.youtube.com/embed/mXnj7JEM3pk?si=jtnTU6J6u8ABmpMg&autoplay=1&mute=0&controls=1&showinfo=0&rel=0", bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo.", showDocument: true }
             ]
         },
         4: { // Automação
@@ -174,23 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleChoice(choice) {
         storyText.innerText = choice.consequence;
+        
+        // Toca o som apropriado
         if (choice.bugs > 0) {
-            bugSound.currentTime = 0;
-            const playPromise = bugSound.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Erro ao tocar o som do bug:", error);
-                });
-            }
+            playSound(bugSound, 'bug');
         } else {
-            correctSound.currentTime = 0;
-            const playPromise = correctSound.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Erro ao tocar o som de acerto:", error);
-                });
-            }
+            playSound(correctSound, 'acerto');
         }
+        
         bugCount += choice.bugs;
         bugCounterSpan.innerText = bugCount;
         
@@ -306,6 +357,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function startGame() {
+        // Inicializa os sons na primeira interação do usuário
+        initializeSounds();
+        
         // Esconde as instruções e o botão de início
         document.getElementById('instructions').style.display = 'none';
         startBtn.style.display = 'none';
@@ -341,6 +395,25 @@ document.addEventListener('DOMContentLoaded', () => {
         checkForSavedGameState();
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', restartGame);
+        
+        // Event listener para o botão de teste de som
+        if (testSoundBtn) {
+            testSoundBtn.addEventListener('click', () => {
+                initializeSounds();
+                // Testa o som de acerto primeiro
+                setTimeout(() => {
+                    playSound(correctSound, 'teste-acerto');
+                }, 100);
+                // Depois testa o som de bug
+                setTimeout(() => {
+                    playSound(bugSound, 'teste-bug');
+                }, 1000);
+                testSoundBtn.textContent = '🔊 Sons Testados!';
+                setTimeout(() => {
+                    testSoundBtn.textContent = '🔊 Testar Sons';
+                }, 2000);
+            });
+        }
         
         // Listener para quando a janela receber foco (usuário voltou da aba do documento)
         window.addEventListener('focus', () => {
@@ -380,6 +453,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.removeItem('gameState');
             }
         }
+    }
+
+    // Event listeners para elementos de áudio
+    if (bugSound) {
+        bugSound.addEventListener('canplaythrough', () => {
+            console.log('Som de bug carregado e pronto');
+        });
+        bugSound.addEventListener('error', (e) => {
+            console.error('Erro ao carregar som de bug:', e);
+        });
+    }
+
+    if (correctSound) {
+        correctSound.addEventListener('canplaythrough', () => {
+            console.log('Som de acerto carregado e pronto');
+        });
+        correctSound.addEventListener('error', (e) => {
+            console.error('Erro ao carregar som de acerto:', e);
+        });
     }
 
     init();

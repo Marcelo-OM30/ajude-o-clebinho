@@ -2,54 +2,260 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Estruturação do Setor de Qualidade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       line-height: 1.6;
-      margin: 40px;
-      background-color: #fdfdfd;
+      margin: 0;
+      padding: 20px;
+      background-image: url('images/office-19.png');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
     }
+
+    /* Marca d'água */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background-image: url('images/mentoria-logo.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Estilos do Cabeçalho */
+    .team-header {
+      width: 100%;
+      max-width: 900px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 16px 16px 0 0;
+      padding: 20px 30px;
+      margin-bottom: 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .logos-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logos-container-small {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mentoria-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-logo-small {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mentoria-logo-small {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-credits h3 {
+      color: #2c3e50;
+      margin: 0 0 10px 0;
+      font-size: 1.2em;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .team-members span {
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .copyright {
+      color: #7f8c8d;
+      font-size: 0.8em;
+      margin: 0;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Container principal */
+    .document-container {
+      width: 100%;
+      max-width: 900px;
+      background-color: rgba(255, 255, 255, 0.97);
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-top: none;
+      border-bottom: none;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Estilos do Rodapé */
+    .team-footer {
+      width: 100%;
+      max-width: 900px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 0 0 16px 16px;
+      padding: 15px 30px;
+      margin-top: 0;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-top: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-footer .team-credits h4 {
+      color: #2c3e50;
+      margin: 0 0 8px 0;
+      font-size: 1em;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .team-members-footer {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 0.9em;
+      color: #34495e;
+      line-height: 1.4;
+    }
+
+    .team-members-footer span {
+      font-weight: 500;
+    }
+
+    /* Estilos do conteúdo do documento */
     h1 {
       color: #2c3e50;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
+    
     h2 {
-      color: #34495e;
-      margin-top: 25px;
-    }
-    ul {
-      margin-top: 5px;
+      color: #2980b9;
+      margin-top: 30px;
       margin-bottom: 15px;
+      font-weight: 600;
+      border-left: 4px solid #3498db;
+      padding-left: 15px;
     }
+    
+    ul {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    
     li {
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      color: #34495e;
     }
+    
     hr {
       border: 0;
-      border-top: 1px solid #ccc;
+      border-top: 2px solid #ecf0f1;
       margin: 30px 0;
     }
+    
     p {
       margin-bottom: 15px;
+      color: #34495e;
+      text-align: justify;
     }
+    
     .back-button {
       position: fixed;
       top: 20px;
       right: 20px;
-      background-color: #3498db;
+      background: linear-gradient(45deg, #3498db, #2980b9);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      padding: 12px 24px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
+      font-weight: 600;
       text-decoration: none;
       display: inline-block;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      z-index: 1000;
     }
+    
     .back-button:hover {
-      background-color: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(45deg, #2980b9, #3498db);
     }
     .raci-table {
       width: 100%;
@@ -106,11 +312,113 @@
       margin: 10px 0;
       padding-left: 20px;
     }
+
+    /* Responsividade para dispositivos móveis */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      body::before {
+        width: 250px;
+        height: 250px;
+        opacity: 0.1;
+      }
+      
+      .team-header, .team-footer, .document-container {
+        max-width: 100%;
+        padding: 15px;
+      }
+      
+      .team-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .logos-container {
+        flex-direction: row;
+        gap: 10px;
+      }
+      
+      .logos-container-small {
+        flex-direction: row;
+        gap: 8px;
+      }
+      
+      .mentoria-logo, .team-logo {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .mentoria-logo-small, .team-logo-small {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .team-members {
+        gap: 5px;
+      }
+      
+      .team-members span {
+        font-size: 0.8em;
+        padding: 3px 8px;
+      }
+      
+      .team-members-footer {
+        font-size: 0.8em;
+      }
+      
+      h1 {
+        font-size: 1.5em;
+      }
+      
+      h2 {
+        font-size: 1.2em;
+      }
+      
+      .back-button {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 12px;
+      }
+      
+      .raci-table {
+        font-size: 0.8em;
+      }
+      
+      .raci-table th, .raci-table td {
+        padding: 6px 4px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<button class="back-button" onclick="returnToGame()">← Voltar ao Jogo</button>
+<!-- Cabeçalho com logo e créditos -->
+<header class="team-header">
+  <div class="team-info">
+    <div class="logos-container">
+      <img src="images/mentoria-logo.png" alt="Logo da Mentoria" class="mentoria-logo">
+      <img src="images/logo-19.png" alt="Logo do Time" class="team-logo">
+    </div>
+    <div class="team-credits">
+      <h3>Produzido por</h3>
+      <div class="team-members">
+        <span>Marcelo Salmeron</span>
+        <span>Denilza</span>
+        <span>Vanessa Alves da Silva</span>
+        <span>Renato Alves</span>
+        <span>Douglas Willian E.D.S.</span>
+      </div>
+      <p class="copyright">© 2025 - Todos os direitos reservados</p>
+    </div>
+  </div>
+</header>
+
+<div class="document-container">
+  <button class="back-button" onclick="returnToGame()">← Voltar ao Jogo</button>
 
 <h1>Documento de Estruturação do Setor de Qualidade</h1>
 <hr>
@@ -358,6 +666,29 @@ function returnToGame() {
   }
 }
 </script>
+
+</div>
+
+<!-- Rodapé com créditos -->
+<footer class="team-footer">
+  <div class="team-info">
+    <div class="logos-container-small">
+      <img src="images/mentoria-logo.png" alt="Logo da Mentoria" class="mentoria-logo-small">
+      <img src="images/logo-19.png" alt="Logo do Time" class="team-logo-small">
+    </div>
+    <div class="team-credits">
+      <h4>Desenvolvido por</h4>
+      <div class="team-members-footer">
+        <span>Marcelo Salmeron</span> • 
+        <span>Denilza</span> • 
+        <span>Vanessa Alves da Silva</span> • 
+        <span>Renato Alves</span> • 
+        <span>Douglas Willian E.D.S.</span>
+      </div>
+      <p class="copyright">© 2025 - Todos os direitos reservados</p>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>

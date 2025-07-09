@@ -13,6 +13,160 @@ body {
     padding: 20px;
     margin: 0;
     box-sizing: border-box;
+    position: relative;
+}
+
+/* Marca d'água */
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background-image: url('images/mentoria-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Estilos do Cabeçalho */
+.team-header {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 16px 16px 0 0;
+    padding: 20px 30px;
+    margin-bottom: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    z-index: 1;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.logos-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logos-container-small {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mentoria-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-credits h3 {
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.team-members span {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.copyright {
+    color: #7f8c8d;
+    font-size: 0.8em;
+    margin: 0;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Estilos do Rodapé */
+.team-footer {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 0 0 16px 16px;
+    padding: 15px 30px;
+    margin-top: 0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: none;
+    position: relative;
+    z-index: 1;
+}
+
+.team-logo-small {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mentoria-logo-small {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-footer .team-credits h4 {
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.team-members-footer {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    color: #34495e;
+    line-height: 1.4;
+}
+
+.team-members-footer span {
+    font-weight: 500;
 }
 
 h1 {
@@ -28,15 +182,24 @@ h1 {
     max-width: 900px;
     background-color: rgba(255, 255, 255, 0.97); /* Mais opaco para melhor leitura */
     padding: 30px;
-    border-radius: 16px; /* Bordas mais arredondadas */
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Sombra mais pronunciada */
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: none;
+    border-bottom: none;
+    position: relative;
+    z-index: 1;
 }
 
 #game-container {
-    margin-bottom: 20px;
+    margin: 0; /* Remove margins para conectar com header/footer */
+    border-radius: 0; /* Remove bordas arredondadas para conectar */
+}
+
+#legend {
+    margin-top: 20px;
+    border-radius: 16px; /* Mantém bordas arredondadas na legenda */
 }
 
 /* Estilos das Instruções */
@@ -393,4 +556,93 @@ h1 {
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     background: linear-gradient(45deg, #7f8c8d, #95a5a6);
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    body::before {
+        width: 250px;
+        height: 250px;
+        opacity: 0.1;
+    }
+    
+    .team-header, .team-footer, #game-container, #legend {
+        max-width: 100%;
+        padding: 15px;
+    }
+    
+    .team-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .logos-container {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .logos-container-small {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .mentoria-logo, .team-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .mentoria-logo-small, .team-logo-small {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .team-members {
+        gap: 5px;
+    }
+    
+    .team-members span {
+        font-size: 0.8em;
+        padding: 3px 8px;
+    }
+    
+    .team-members-footer {
+        font-size: 0.8em;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+    
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .instruction-item {
+        padding: 15px;
+    }
+    
+    #game-board {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+    }
+    
+    .square {
+        padding: 10px 5px;
+        min-height: 60px;
+        font-size: 11px;
+    }
+    
+    #video-modal iframe {
+        width: 95vw;
+        height: 53vw;
+        max-width: none;
+        max-height: none;
+    }
 }
