@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const correctSound = document.getElementById('correct-sound');
     const videoModal = document.getElementById('video-modal');
     const eventVideoIframe = document.getElementById('event-video-iframe');
+    const documentModal = document.getElementById('document-modal');
+    const viewDocumentBtn = document.getElementById('view-document-btn');
+    const skipDocumentBtn = document.getElementById('skip-document-btn');
 
     let playerPosition;
     let bugCount;
@@ -30,20 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const gameEvents = {
-        0: { // Início
-            text: "A sprint começou! Clebinho, seu café está pronto. É hora de começar os trabalhos.",
+        0: { 
+            text: "A sprint começou! O café está pronto. É hora de começar os trabalhos.",
             choices: [
                 { text: "Pegar o café e ir para o refinamento!", bugs: 0, move: 1, consequence: "Café na mão, ideias na cabeça. Vamos para o refinamento!" }
             ]
         },
-        1: { // Refinamento
+        1: { 
             text: "Hora do refinamento da história. O que fazer?",
             choices: [
-                { text: "Participar ativamente com o PO e Devs", bugs: 0, move: 1, consequence: "Você colaborou e os critérios de aceite estão claros!" },
+                { text: "Revisar os docs", bugs: 0, move: 1, consequence: "Verificar se os critérios de aceite estão claros!" },
                 { text: "Esperar a tarefa chegar para você", bugs: 1, move: 1, consequence: "Você não participou e um requisito importante passou despercebido. +1 bug!" }
             ]
         },
-        2: { // Planejamento
+        2: { 
             text: "Reunião de planejamento da Sprint. Como você estima as tarefas de QA?",
             choices: [
                 { text: "Analisar a complexidade e pedir tempo suficiente", bugs: 0, move: 1, consequence: "Sua estimativa foi precisa e você terá tempo para testes de qualidade." },
@@ -53,59 +56,59 @@ document.addEventListener('DOMContentLoaded', () => {
         3: { // Daily Meeting
             text: "Hora da Daily! O time está reunido para sincronizar. Vamos assistir.",
             choices: [
-                { text: "Participar da Daily", video: "https://www.youtube.com/embed/mXnj7JEM3pk?si=jtnTU6J6u8ABmpMg&autoplay=1", bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo." }
+                { text: "Participar da Daily", video: "https://www.youtube.com/embed/mXnj7JEM3pk?si=jtnTU6J6u8ABmpMg&autoplay=1", bugs: 0, move: 1, consequence: "Daily assistida! Todos na mesma página, prontos para o próximo passo.", showDocument: true }
             ]
         },
-        4: { // Automação (era 5)
+        4: { // Automação
             text: "É hora de automatizar os testes. Você tem acesso ao código?",
             choices: [
-                { text: "Sim, o time me deu acesso e ajuda", bugs: 0, move: 2, consequence: "Com acesso ao código, a automação foi mais robusta e eficiente! Você avança mais rápido." },
+                { text: "Sim, o time me deu acesso e ajuda", bugs: 0, move: 1, consequence: "Com acesso ao código, a automação foi mais robusta e eficiente!" },
                 { text: "Não, testo apenas pela interface", bugs: 2, move: 1, consequence: "Sem acesso ao código, sua automação é frágil e superficial. +2 bugs!" }
             ]
         },
-        5: { // Revisão de Código (era 6)
-            text: "Um dev pede para você 'dar uma olhadinha' em um Pull Request antes de liberar para testes.",
+        5: { 
+            text: "revisar o Pull Request antes de mergeaar a alteraões para o repositório",
             choices: [
-                { text: "Revisar o código junto com o dev, questionando a lógica", bugs: 0, move: 1, consequence: "Você encontrou uma falha de lógica na revisão e evitou um bug complexo!" },
+                { text: "Revisar o código junto com o time", bugs: 0, move: 1, consequence: "Você encontrou uma falha de lógica na revisão e evitou um bug complexo!" },
                 { text: "Apenas aprovar para não atrasar a tarefa", bugs: 2, move: 1, consequence: "O PR continha um erro que agora está na branch principal. +2 bugs!" }
             ]
         },
-        6: { // Testes Ad-Hoc (era 7)
+        6: { 
             text: "Tempo livre! O que fazer?",
             choices: [
-                { text: "Executar testes exploratórios planejados", bugs: 0, move: 1, consequence: "Seus testes exploratórios revelaram pontos de melhoria!" },
+                { text: "Executar testes exploratórios planejados, usando documentação clara", bugs: 0, move: 1, consequence: "Seus testes exploratórios revelaram pontos de melhoria!" },
                 { text: "Fazer testes aleatórios sem critério", bugs: 1, move: 1, consequence: "Você testou, mas sem foco, e um bug crítico passou. +1 bug!" }
             ]
         },
-        7: { // Integração Contínua (era 8)
-            text: "O pipeline de Integração Contínua quebrou após um merge.",
+        7: { 
+            text: "O pipeline dos testes quebrou após um merge.",
             choices: [
                 { text: "Analisar os logs e ajudar o time a encontrar a causa", bugs: 0, move: 1, consequence: "Trabalho em equipe! Vocês encontraram o problema e o pipeline está verde de novo." },
                 { text: "Ignorar, pois a responsabilidade é dos Devs", bugs: 1, move: 1, consequence: "O pipeline quebrado atrasou a entrega e um bug passou despercebido. +1 bug!" }
             ]
         },
-        8: { // Reunião de Sprint (era 9)
+        8: { 
             text: "Reunião de revisão da Sprint. Como você apresenta os resultados de QA?",
             choices: [
                 { text: "Mostrar métricas, bugs encontrados e processos de teste", bugs: 0, move: 1, consequence: "Sua apresentação foi clara e o time valorizou o trabalho de QA." },
                 { text: "Dizer que 'está tudo testado'", bugs: 1, move: 1, consequence: "A falta de detalhes gerou desconfiança e o PO pediu mais testes. +1 bug!" }
             ]
         },
-        9: { // Feedback do PO (era 10)
+        9: { 
             text: "O Product Owner está validando a entrega e encontra um comportamento que ele não esperava.",
             choices: [
                 { text: "Conversar com o PO e o Dev para entender a divergência", bugs: 0, move: 1, consequence: "A conversa esclareceu que era um mal-entendido nos requisitos. O time ajustou a funcionalidade." },
                 { text: "Dizer que 'nos meus testes funcionou'", bugs: 2, move: 1, consequence: "A resposta defensiva criou um atrito e o PO abriu um bug crítico. +2 bugs!" }
             ]
         },
-        10: { // Deploy (era 11)
+        10: { 
             text: "O deploy para produção vai acontecer!",
             choices: [
-                { text: "Acompanhar o deploy e os logs", bugs: 0, move: 2, consequence: "Você acompanhou o deploy e garantiu que tudo correu bem. Sprint concluída com sucesso!" },
+                { text: "Acompanhar o deploy e os logs", bugs: 0, move: 1, consequence: "Você acompanhou o deploy e garantiu que tudo correu bem!" },
                 { text: "Confiar que tudo vai dar certo", bugs: 3, move: 1, consequence: "O deploy falhou durante a madrugada e ninguém viu. +3 bugs!" }
             ]
         },
-        11: { // Monitoramento (era 12)
+        11: { 
             text: "A funcionalidade está em produção. E agora?",
             choices: [
                 { text: "Analisar os logs e ferramentas de monitoramento em busca de anomalias", bugs: 0, move: 1, consequence: "Você detectou um pico de erros e o time corrigiu antes que os usuários percebessem. Ufa!" },
@@ -198,14 +201,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // Se a escolha tiver um vídeo, toca o vídeo. Senão, avança após um delay.
         if (choice.video) {
             playVideo(choice.video, () => {
-                playerPosition = nextPosition;
-                renderGameState();
+                // Após o vídeo, verifica se deve mostrar o modal do documento
+                if (choice.showDocument) {
+                    showDocumentModal(() => {
+                        playerPosition = nextPosition;
+                        renderGameState();
+                    });
+                } else {
+                    playerPosition = nextPosition;
+                    renderGameState();
+                }
             });
         } else {
             // Adiciona um pequeno atraso para o jogador ler a consequência
             setTimeout(() => {
-                playerPosition = nextPosition;
-                renderGameState(); // Move e renderiza o novo estado
+                // Verifica se deve mostrar o modal do documento
+                if (choice.showDocument) {
+                    showDocumentModal(() => {
+                        playerPosition = nextPosition;
+                        renderGameState();
+                    });
+                } else {
+                    playerPosition = nextPosition;
+                    renderGameState(); // Move e renderiza o novo estado
+                }
             }, 2500); // Atraso de 2.5 segundos
         }
     }
@@ -249,6 +268,43 @@ document.addEventListener('DOMContentLoaded', () => {
         videoModal.addEventListener('click', onOverlayClick);
     }
 
+    function showDocumentModal(onCloseCallback) {
+        documentModal.classList.remove('hidden');
+        
+        // Event listener para o botão "Ver Documento"
+        function onViewDocument() {
+            // Salva o estado atual do jogo no localStorage
+            const gameState = {
+                playerPosition: playerPosition,
+                bugCount: bugCount,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            
+            window.open('documento-qualidade.html', '_blank');
+            closeDocumentModal();
+        }
+        
+        // Event listener para o botão "Pular por Agora"
+        function onSkipDocument() {
+            closeDocumentModal();
+        }
+        
+        // Função para fechar o modal e executar callback
+        function closeDocumentModal() {
+            documentModal.classList.add('hidden');
+            viewDocumentBtn.removeEventListener('click', onViewDocument);
+            skipDocumentBtn.removeEventListener('click', onSkipDocument);
+            if (onCloseCallback) {
+                onCloseCallback();
+            }
+        }
+        
+        // Adiciona os event listeners
+        viewDocumentBtn.addEventListener('click', onViewDocument);
+        skipDocumentBtn.addEventListener('click', onSkipDocument);
+    }
+
     async function startGame() {
         startBtn.style.display = 'none';
         restartBtn.style.display = 'inline-block';
@@ -264,14 +320,56 @@ document.addEventListener('DOMContentLoaded', () => {
         bugCount = 0;
         bugCounterSpan.innerText = bugCount;
         videoModal.classList.add('hidden'); // Garante que o modal de vídeo feche ao reiniciar
+        documentModal.classList.add('hidden'); // Garante que o modal de documento feche ao reiniciar
         eventVideoIframe.src = ""; // Para a reprodução do vídeo
+        localStorage.removeItem('gameState'); // Remove qualquer estado salvo
         renderGameState();
     }
 
     function init() {
         createBoard();
+        checkForSavedGameState();
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', restartGame);
+        
+        // Listener para quando a janela receber foco (usuário voltou da aba do documento)
+        window.addEventListener('focus', () => {
+            // Verifica se há um estado salvo quando a janela recebe foco
+            const savedState = localStorage.getItem('gameState');
+            if (savedState && startBtn.style.display !== 'none') {
+                checkForSavedGameState();
+            }
+        });
+    }
+
+    function checkForSavedGameState() {
+        const savedState = localStorage.getItem('gameState');
+        if (savedState) {
+            try {
+                const gameState = JSON.parse(savedState);
+                // Verifica se o estado salvo não é muito antigo (ex: menos de 1 hora)
+                const oneHour = 60 * 60 * 1000;
+                if (Date.now() - gameState.timestamp < oneHour) {
+                    // Pergunta ao usuário se quer continuar de onde parou
+                    if (confirm('Você tem um jogo salvo! Deseja continuar de onde parou (após a Daily Meeting)?')) {
+                        playerPosition = gameState.playerPosition;
+                        bugCount = gameState.bugCount;
+                        bugCounterSpan.innerText = bugCount;
+                        startBtn.style.display = 'none';
+                        restartBtn.style.display = 'inline-block';
+                        renderGameState();
+                        // Remove o estado salvo após restaurar
+                        localStorage.removeItem('gameState');
+                        return;
+                    }
+                }
+                // Remove estado antigo ou rejeitado
+                localStorage.removeItem('gameState');
+            } catch (e) {
+                // Remove estado corrompido
+                localStorage.removeItem('gameState');
+            }
+        }
     }
 
     init();

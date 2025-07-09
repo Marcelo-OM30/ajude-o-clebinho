@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajude a Clebinha</title>
+    <title>Ajude A Clebinha</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="game-container">
-        <h1>Ajude a Clebinha!</h1>
+        <h1>Estruturação do setor de qualidade game (ajude a Clebinha)</h1>
         <div id="game-info">
-            <span>Bugs em Produção: <span id="bug-counter">0</span></span>
+            <span>Bugs encontrados: <span id="bug-counter">0</span></span>
         </div>
         <div id="game-board">
             <!-- As casas do tabuleiro serão geradas aqui -->
@@ -25,6 +25,17 @@
 
     <div id="video-modal" class="hidden">
         <iframe id="event-video-iframe" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <div id="document-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Documento Criado Durante a Daily!</h2>
+            <p>O time decidiu criar um documento sobre a estruturação do setor de qualidade. Que tal dar uma olhada?</p>
+            <div class="modal-buttons">
+                <button id="view-document-btn">Ver Documento</button>
+                <button id="skip-document-btn">Pular por Agora</button>
+            </div>
+        </div>
     </div>
 
     <div id="legend">

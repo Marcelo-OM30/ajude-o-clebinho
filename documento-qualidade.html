@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estruturação do Setor de Qualidade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 40px;
+      background-color: #fdfdfd;
+    }
+    h1 {
+      color: #2c3e50;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+    }
+    h2 {
+      color: #34495e;
+      margin-top: 25px;
+    }
+    ul {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 30px 0;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+    .raci-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .raci-table th, .raci-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .raci-table th {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+    }
+    .raci-table .activity {
+      text-align: left;
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+    .raci-r {
+      background-color: #e74c3c;
+      color: white;
+      font-weight: bold;
+    }
+    .raci-a {
+      background-color: #f39c12;
+      color: white;
+      font-weight: bold;
+    }
+    .raci-c {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+    }
+    .raci-i {
+      background-color: #95a5a6;
+      color: white;
+      font-weight: bold;
+    }
+    .raci-legend {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .raci-legend h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .raci-legend ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<button class="back-button" onclick="returnToGame()">← Voltar ao Jogo</button>
+
+<h1>Documento de Estruturação do Setor de Qualidade</h1>
+<hr>
+
+<h1>1. Visão Geral</h1>
+
+<h2>1.1 Introdução</h2>
+<p>Atualmente, o setor de Qualidade conta com apenas um Analista de QA, que trabalha de forma isolada, sem liderança direta ou suporte de profissionais mais experientes. Os testes são realizados de maneira ad-hoc, sem planejamento estruturado, sem acesso ao código-fonte e com pouco vínculo com o PO, Tech Lead e equipe de desenvolvimento. Além disso, o QA enfrenta dificuldades para participar desde o início das sprints, comprometendo a prevenção de falhas desde as fases iniciais.</p>
+
+<h2>1.2 Objetivos</h2>
+<ul>
+  <li>Melhorar a integração do QA com as demais equipes do ciclo de desenvolvimento.</li>
+  <li>Estruturar e padronizar o planejamento e execução de testes.</li>
+  <li>Ampliar a cobertura de testes automatizados.</li>
+  <li>Permitir que o QA atue estrategicamente no planejamento e na qualidade do produto.</li>
+</ul>
+
+<hr>
+
+<h1>2. Estrutura Organizacional</h1>
+
+<h2>2.1 Papel do QA</h2>
+<ul>
+  <li>Participar ativamente das cerimônias ágeis, especialmente no planejamento das sprints.</li>
+  <li>Trabalhar em parceria com o PO para definição de critérios de aceitação.</li>
+  <li>Colaborar com o Tech Lead para compreensão das soluções técnicas e pontos críticos.</li>
+  <li>Atuar na construção de cenários de teste e estratégias de automação.</li>
+</ul>
+
+<h2>2.2 Integração com Outras Equipes</h2>
+<ul>
+  <li>Estabelecimento de rituais semanais de alinhamento entre QA, PO e Devs.</li>
+  <li>Realização de revisões de histórias antes do início da implementação.</li>
+  <li>Estímulo à cultura de "Shift Left", inserindo o QA no início da cadeia de desenvolvimento.</li>
+</ul>
+
+<hr>
+
+<h1>3. Melhoria de Processos</h1>
+
+<h2>3.1 Estruturação da Automação</h2>
+<ul>
+  <li>Avaliação e adoção de ferramentas de automação compatíveis com o projeto (ex: Cypress, Playwright).</li>
+  <li>Criação de pipelines automatizados integrados à esteira CI/CD.</li>
+  <li>Treinamento do QA em boas práticas de automação e versionamento.</li>
+</ul>
+
+<h2>3.2 Planejamento de Testes</h2>
+<ul>
+  <li>Elaboração de planos de teste por funcionalidade e por sprint.</li>
+  <li>Registros e manutenção de casos de teste em ferramenta de gestão (ex: TestRail, Xray, Zephyr).</li>
+  <li>Revisão e validação de testes com os stakeholders.</li>
+</ul>
+
+<hr>
+
+<h1>4. Recursos Necessários</h1>
+
+<h2>4.1 Reforço na Equipe</h2>
+<ul>
+  <li>Consideração de contratação de um profissional de execução de testes manuais, liberando o QA atual para foco em planejamento e automação.</li>
+  <li>Avaliação da possibilidade futura de um coordenador de qualidade para liderança do time.</li>
+</ul>
+
+<h2>4.2 Infraestrutura e Ferramentas</h2>
+<ul>
+  <li>Ambientes de testes dedicados e com dados adequados para execução segura.</li>
+  <li>Ferramentas de gestão de defeitos e de testes.</li>
+  <li>Acesso do QA ao repositório de código para investigação e compreensão das funcionalidades.</li>
+</ul>
+
+<hr>
+
+<h1>5. Matriz RACI - Responsabilidades por Atividade</h1>
+
+<div class="raci-legend">
+  <h3>Legenda da Matriz RACI:</h3>
+  <ul>
+    <li><strong>C</strong> - Executa a atividade</li>
+    <li><strong>R</strong> - Responsável pela atividade</li>
+    <li><strong>A</strong> - Avalia/Aprova o resultado</li>
+    <li><strong>I</strong> - É informado sobre o progresso e resultados</li>
+  </ul>
+</div>
+
+<table class="raci-table">
+  <thead>
+    <tr>
+      <th>Atividade/Processo</th>
+      <th>QA Analista</th>
+      <th>Tech Lead</th>
+      <th>Product Owner</th>
+      <th>Desenvolvedores</th>
+      <th>Scrum Master</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="activity">Refinamento de Histórias</td>
+      <td class="raci-c">C</td>
+      <td class="raci-r">R</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Definição de Critérios de Aceite</td>
+      <td class="raci-r">R</td>
+      <td class="raci-c">C</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Planejamento de Testes</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-c">C</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Execução de Testes Manuais</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Desenvolvimento de Testes Automatizados</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Revisão de Código (Pull Requests)</td>
+      <td class="raci-r">R</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Configuração de Ambientes de Teste</td>
+      <td class="raci-c">C</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Execução de Testes de Regressão</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Relatórios de Bugs</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Acompanhamento de Deploy</td>
+      <td class="raci-r">R</td>
+      <td class="raci-a">A</td>
+      <td class="raci-i">I</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Monitoramento Pós-Deploy</td>
+      <td class="raci-r">R</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+    </tr>
+    <tr>
+      <td class="activity">Documentação de Processos de QA</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+      <td class="raci-c">C</td>
+    </tr>
+    <tr>
+      <td class="activity">Treinamento da Equipe em QA</td>
+      <td class="raci-a">A</td>
+      <td class="raci-r">R</td>
+      <td class="raci-i">I</td>
+      <td class="raci-r">R</td>
+      <td class="raci-c">C</td>
+    </tr>
+    <tr>
+      <td class="activity">Métricas e Relatórios de Qualidade</td>
+      <td class="raci-a">A</td>
+      <td class="raci-c">C</td>
+      <td class="raci-i">I</td>
+      <td class="raci-i">I</td>
+      <td class="raci-c">C</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h1>6. Métricas e Avaliação</h1>
+
+<h2>6.1 Indicadores de Qualidade</h2>
+<ul>
+  <li>Taxa de defeitos em produção por sprint.</li>
+  <li>Cobertura de testes automatizados.</li>
+  <li>Tempo de execução dos testes.</li>
+  <li>Tempo de resposta para correção de bugs.</li>
+</ul>
+
+<h2>6.2 Avaliação Contínua</h2>
+<ul>
+  <li>Reuniões trimestrais para revisão das práticas e ajustes na estrutura.</li>
+  <li>Coleta de feedbacks de outras equipes sobre o papel do QA.</li>
+</ul>
+
+<hr>
+
+<h1>7. Conclusão</h1>
+<p>A reestruturação do setor de qualidade visa não apenas resolver os problemas operacionais atuais, mas também garantir um crescimento sustentável da qualidade do produto, com maior integração entre equipes, planejamento adequado e foco em prevenção de falhas. Os próximos passos envolvem a execução das ações propostas, com acompanhamento contínuo dos resultados.</p>
+
+<script>
+function returnToGame() {
+  // Verifica se há uma janela pai (indicando que foi aberto em nova aba)
+  if (window.opener && !window.opener.closed) {
+    // Fecha esta aba e retorna o foco para a janela do jogo
+    window.close();
+  } else {
+    // Se não há janela pai, redireciona para o jogo
+    window.location.href = 'index.html';
+  }
+}
+</script>
+
+</body>
+</html>
