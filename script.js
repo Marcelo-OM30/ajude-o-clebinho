@@ -306,6 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function startGame() {
+        // Esconde as instruções e o botão de início
+        document.getElementById('instructions').style.display = 'none';
         startBtn.style.display = 'none';
         restartBtn.style.display = 'inline-block';
         
@@ -316,6 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function restartGame() {
+        // Mostra as instruções novamente
+        document.getElementById('instructions').style.display = 'block';
+        startBtn.style.display = 'inline-block';
+        restartBtn.style.display = 'none';
+        
         playerPosition = 0;
         bugCount = 0;
         bugCounterSpan.innerText = bugCount;
@@ -323,7 +330,10 @@ document.addEventListener('DOMContentLoaded', () => {
         documentModal.classList.add('hidden'); // Garante que o modal de documento feche ao reiniciar
         eventVideoIframe.src = ""; // Para a reprodução do vídeo
         localStorage.removeItem('gameState'); // Remove qualquer estado salvo
-        renderGameState();
+        
+        // Limpa o texto da história
+        storyText.innerText = "";
+        choicesDiv.innerHTML = "";
     }
 
     function init() {
