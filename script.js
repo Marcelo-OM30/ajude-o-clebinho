@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Tenta carregar e preparar os sons
                 bugSound.load();
                 correctSound.load();
-                
+
                 // Define o volume
                 bugSound.volume = 0.7;
                 correctSound.volume = 0.7;
-                
+
                 soundsInitialized = true;
                 console.log('Sons inicializados com sucesso');
             } catch (error) {
@@ -43,17 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!soundsInitialized) {
             initializeSounds();
         }
-        
+
         try {
             // Verifica se o elemento de áudio existe e está carregado
             if (!audioElement || audioElement.readyState < 2) {
                 console.warn(`Som ${soundName} não está pronto para reprodução`);
                 return;
             }
-            
+
             audioElement.currentTime = 0;
             const playPromise = audioElement.play();
-            
+
             if (playPromise !== undefined) {
                 playPromise
                     .then(() => {
@@ -93,20 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const gameEvents = {
-        0: { 
+        0: {
             text: "A sprint começou! O café está pronto. É hora de começar os trabalhos.",
             choices: [
                 { text: "Pegar o café e ir para o refinamento!", bugs: 0, move: 1, consequence: "Café na mão, ideias na cabeça. Vamos para o refinamento!" }
             ]
         },
-        1: { 
+        1: {
             text: "Hora do refinamento da história. O que fazer?",
             choices: [
                 { text: "Revisar os docs", bugs: 0, move: 1, consequence: "Verificar se os critérios de aceite estão claros!" },
                 { text: "Esperar a tarefa chegar para você", bugs: 1, move: 1, consequence: "Você não participou e um requisito importante passou despercebido. +1 bug!" }
             ]
         },
-        2: { 
+        2: {
             text: "Reunião de planejamento da Sprint. Como você estima as tarefas de QA?",
             choices: [
                 { text: "Analisar a complexidade e pedir tempo suficiente", bugs: 0, move: 1, consequence: "Sua estimativa foi precisa e você terá tempo para testes de qualidade." },
@@ -126,49 +126,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 { text: "Não, testo apenas pela interface", bugs: 2, move: 1, consequence: "Sem acesso ao código, sua automação é frágil e superficial. +2 bugs!" }
             ]
         },
-        5: { 
-            text: "revisar o Pull Request antes de mergeaar a alteraões para o repositório",
+        5: {
+            text: "revisar o Pull Request antes de mergear as alterações para o repositório",
             choices: [
                 { text: "Revisar o código junto com o time", bugs: 0, move: 1, consequence: "Você encontrou uma falha de lógica na revisão e evitou um bug complexo!" },
                 { text: "Apenas aprovar para não atrasar a tarefa", bugs: 2, move: 1, consequence: "O PR continha um erro que agora está na branch principal. +2 bugs!" }
             ]
         },
-        6: { 
+        6: {
             text: "Tempo livre! O que fazer?",
             choices: [
                 { text: "Executar testes exploratórios planejados, usando documentação clara", bugs: 0, move: 1, consequence: "Seus testes exploratórios revelaram pontos de melhoria!" },
                 { text: "Fazer testes aleatórios sem critério", bugs: 1, move: 1, consequence: "Você testou, mas sem foco, e um bug crítico passou. +1 bug!" }
             ]
         },
-        7: { 
+        7: {
             text: "O pipeline dos testes quebrou após um merge.",
             choices: [
                 { text: "Analisar os logs e ajudar o time a encontrar a causa", bugs: 0, move: 1, consequence: "Trabalho em equipe! Vocês encontraram o problema e o pipeline está verde de novo." },
                 { text: "Ignorar, pois a responsabilidade é dos Devs", bugs: 1, move: 1, consequence: "O pipeline quebrado atrasou a entrega e um bug passou despercebido. +1 bug!" }
             ]
         },
-        8: { 
+        8: {
             text: "Reunião de revisão da Sprint. Como você apresenta os resultados de QA?",
             choices: [
                 { text: "Mostrar métricas, bugs encontrados e processos de teste", bugs: 0, move: 1, consequence: "Sua apresentação foi clara e o time valorizou o trabalho de QA." },
                 { text: "Dizer que 'está tudo testado'", bugs: 1, move: 1, consequence: "A falta de detalhes gerou desconfiança e o PO pediu mais testes. +1 bug!" }
             ]
         },
-        9: { 
+        9: {
             text: "O Product Owner está validando a entrega e encontra um comportamento que ele não esperava.",
             choices: [
                 { text: "Conversar com o PO e o Dev para entender a divergência", bugs: 0, move: 1, consequence: "A conversa esclareceu que era um mal-entendido nos requisitos. O time ajustou a funcionalidade." },
                 { text: "Dizer que 'nos meus testes funcionou'", bugs: 2, move: 1, consequence: "A resposta defensiva criou um atrito e o PO abriu um bug crítico. +2 bugs!" }
             ]
         },
-        10: { 
+        10: {
             text: "O deploy para produção vai acontecer!",
             choices: [
                 { text: "Acompanhar o deploy e os logs", bugs: 0, move: 1, consequence: "Você acompanhou o deploy e garantiu que tudo correu bem!" },
                 { text: "Confiar que tudo vai dar certo", bugs: 3, move: 1, consequence: "O deploy falhou durante a madrugada e ninguém viu. +3 bugs!" }
             ]
         },
-        11: { 
+        11: {
             text: "A funcionalidade está em produção. E agora?",
             choices: [
                 { text: "Analisar os logs e ferramentas de monitoramento em busca de anomalias", bugs: 0, move: 1, consequence: "Você detectou um pico de erros e o time corrigiu antes que os usuários percebessem. Ufa!" },
@@ -224,8 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Este bloco não deve mais ser alcançado se todos os eventos estiverem mapeados
             // Mas por segurança, podemos avançar ou terminar o jogo
             if (playerPosition < boardSquares.length - 1) {
-                 playerPosition++;
-                 renderGameState();
+                playerPosition++;
+                renderGameState();
             } else {
                 endGame();
             }
@@ -234,17 +234,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleChoice(choice) {
         storyText.innerText = choice.consequence;
-        
+
         // Toca o som apropriado
         if (choice.bugs > 0) {
             playSound(bugSound, 'bug');
         } else {
             playSound(correctSound, 'acerto');
         }
-        
+
         bugCount += choice.bugs;
         bugCounterSpan.innerText = bugCount;
-        
+
         const nextPosition = playerPosition + choice.move;
 
         choicesDiv.innerHTML = ''; // Limpa os botões de escolha
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             endText += "\n\nO cliente está furioso com a quantidade de bugs. O projeto é considerado um fracasso.";
         }
         storyText.innerText = endText;
-        choicesDiv.innerHTML = ''; 
+        choicesDiv.innerHTML = '';
     }
 
     function playVideo(src, onEndedCallback) {
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showDocumentModal(onCloseCallback) {
         documentModal.classList.remove('hidden');
-        
+
         // Event listener para o botão "Ver Documento"
         function onViewDocument() {
             // Salva o estado atual do jogo no localStorage
@@ -331,16 +331,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 timestamp: Date.now()
             };
             localStorage.setItem('gameState', JSON.stringify(gameState));
-            
+
             window.open('documento-qualidade.html', '_blank');
             closeDocumentModal();
         }
-        
+
         // Event listener para o botão "Pular por Agora"
         function onSkipDocument() {
             closeDocumentModal();
         }
-        
+
         // Função para fechar o modal e executar callback
         function closeDocumentModal() {
             documentModal.classList.add('hidden');
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 onCloseCallback();
             }
         }
-        
+
         // Adiciona os event listeners
         viewDocumentBtn.addEventListener('click', onViewDocument);
         skipDocumentBtn.addEventListener('click', onSkipDocument);
@@ -359,12 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
     async function startGame() {
         // Inicializa os sons na primeira interação do usuário
         initializeSounds();
-        
+
         // Esconde as instruções e o botão de início
         document.getElementById('instructions').style.display = 'none';
         startBtn.style.display = 'none';
         restartBtn.style.display = 'inline-block';
-        
+
         playerPosition = 0;
         bugCount = 0;
         bugCounterSpan.innerText = bugCount;
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('instructions').style.display = 'block';
         startBtn.style.display = 'inline-block';
         restartBtn.style.display = 'none';
-        
+
         playerPosition = 0;
         bugCount = 0;
         bugCounterSpan.innerText = bugCount;
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         documentModal.classList.add('hidden'); // Garante que o modal de documento feche ao reiniciar
         eventVideoIframe.src = ""; // Para a reprodução do vídeo
         localStorage.removeItem('gameState'); // Remove qualquer estado salvo
-        
+
         // Limpa o texto da história
         storyText.innerText = "";
         choicesDiv.innerHTML = "";
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkForSavedGameState();
         startBtn.addEventListener('click', startGame);
         restartBtn.addEventListener('click', restartGame);
-        
+
         // Event listener para o botão de teste de som
         if (testSoundBtn) {
             testSoundBtn.addEventListener('click', () => {
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 2000);
             });
         }
-        
+
         // Listener para quando a janela receber foco (usuário voltou da aba do documento)
         window.addEventListener('focus', () => {
             // Verifica se há um estado salvo quando a janela recebe foco
